@@ -1,21 +1,24 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { FiShoppingBag } from "react-icons/fi";
 import { BsFillPencilFill } from "react-icons/bs";
 
 export default function Header() {
   return (
-    <>
-      <h1>
-        <Link to='/'>Shoopy</Link>
-      </h1>
-      <div>
+    <header className='flex justify-between border-b border-gray-300 p-2'>
+      <Link to='/' className='flex items-center text-4xl text-brand'>
+        <FiShoppingBag />
+        <h1>Shoopy</h1>
+      </Link>
+
+      <nav className='flex items-center gap-4 font-semibold'>
         <Link to='/products'>products</Link>
         <Link to='/products/new'>
           <BsFillPencilFill />
         </Link>
         <Link to='/cart'>cart</Link>
         <button type='button'>Login</button>
-      </div>
-    </>
+      </nav>
+    </header>
   );
 }
