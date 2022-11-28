@@ -1,15 +1,12 @@
-import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FiShoppingBag } from "react-icons/fi";
 import { BsFillPencilFill } from "react-icons/bs";
-import { login, logout, onUserStateChange } from "../api/firebase";
 import User from "./User";
+import Button from "./ui/Button";
+import { useAuthContext } from "./context/AuthContext";
 
 export default function Header() {
-  const [user, setUser] = useState();
-  useEffect(() => {
-    onUserStateChange((user) => setUser(user));
-  }, []);
+  const { user, login, logout } = useAuthContext();
 
   return (
     <header className='flex justify-between border-b border-gray-300 p-2'>
@@ -25,18 +22,10 @@ export default function Header() {
             <BsFillPencilFill />
           </Link>
         )}
-        <Link to='/cart'>cart</Link>
-        {!user && (
-          <button type='button' onClick={login}>
-            Login
-          </button>
-        )}
+        {user && <Link to='/cart'>cart</Link>}
+        {!user && <Button type='button' onClick={login} text='Login' />}
         {user && <User user={user} />}
-        {user && (
-          <button type='button' onClick={logout}>
-            Logout
-          </button>
-        )}
+        {user && <Button type='button' onClick={logout} text='Logout' />}
       </nav>
     </header>
   );

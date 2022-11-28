@@ -8,6 +8,7 @@ import {
   onAuthStateChanged,
 } from "firebase/auth";
 import { getDatabase, ref, child, get } from "firebase/database";
+import { Navigate } from "react-router-dom";
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
   authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
@@ -27,6 +28,7 @@ export function login() {
 
 export function logout() {
   signOut(auth).catch(console.error);
+  <Navigate to='/' replace />;
 }
 
 export function onUserStateChange(callback) {
