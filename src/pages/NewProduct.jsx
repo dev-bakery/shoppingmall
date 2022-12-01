@@ -15,8 +15,10 @@ export default function NewProduct() {
     setProduct((product) => ({ ...product, [name]: value }));
   };
   const handleSubmit = (e) => {
-    console.log(11);
     e.preventDefault();
+    uploadImage(file).then((url) => {
+      console.log(url);
+    });
   };
 
   return (
@@ -70,7 +72,7 @@ export default function NewProduct() {
           required
           onChange={handleChange}
         />
-        <Button text={"제품등록하기"} />
+        <Button text={"제품등록하기"} onClick={handleSubmit} />
       </form>
     </section>
   );
