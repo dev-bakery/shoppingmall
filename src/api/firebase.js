@@ -1,5 +1,5 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
+import { v4 as uuid } from "uuid";
 import {
   getAuth,
   signInWithPopup,
@@ -7,8 +7,7 @@ import {
   signOut,
   onAuthStateChanged,
 } from "firebase/auth";
-import { getDatabase, ref, get } from "firebase/database";
-import { Navigate } from "react-router-dom";
+import { getDatabase, ref, set, get } from "firebase/database";
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
   authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
@@ -28,7 +27,6 @@ export function login() {
 
 export function logout() {
   signOut(auth).catch(console.error);
-  <Navigate to='/' replace />;
 }
 
 export function onUserStateChange(callback) {
@@ -48,4 +46,16 @@ async function adminUser(user) {
       }
       return user;
     });
+}
+
+export async function addNewProduct(product, image) {
+  const id = uuid();
+  console.log(product);
+  return set(ref(database, `products/${id}`), {
+    ...product,
+    id,
+    price: parseInt(product.price),
+    image,
+    options: product.options.split(","),
+  });
 }
