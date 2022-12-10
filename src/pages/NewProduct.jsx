@@ -20,6 +20,7 @@ export default function NewProduct() {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
+    setIsUploading(true);
     uploadImage(file)
       .then((url) => {
         addNewProduct(product, url).then(() => {
@@ -94,6 +95,7 @@ export default function NewProduct() {
         <Button
           text={isUploading ? "업로드중..." : "제품 등록하기"}
           onClick={handleSubmit}
+          disabled={isUploading}
         />
       </form>
     </section>
